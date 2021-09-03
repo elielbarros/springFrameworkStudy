@@ -1,0 +1,10 @@
+Carregamento Eager
+Carrega junto com a entidade por mais que esse relacionamento nao seja utilizado
+Por padrão ManyToOne usa carregamento Eager
+A boa prática é colocar esse carregamento para ser Lazy
+@ManyToOne(fetch = FetchType.LAZY)
+Antes: @ManyToOne
+
+Carregamento Lazy
+Carrega apenas se for feito o acesso
+Por padrão ManyToOne usa carregamento Lazy
