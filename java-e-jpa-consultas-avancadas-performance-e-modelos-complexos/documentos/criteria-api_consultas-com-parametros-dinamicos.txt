@@ -1,0 +1,39 @@
+Existe alguns eventos em que os parametros são opcionais, por exemplo. Como posso fazer essa consulta com os parametros dinamicos?
+
+Colocamos na consulta o "WHERE 1=1".
+
+Exemplo:
+
+"SELECT p FROM Produto p WHERE 1=1"
+
+Em seguida colocamos os complementos com AND
+
+if(nome != null && !nome.trim().isEmpty()) {
+	jpql = " AND p.nome = :nome ";
+}
+if(preco != null) {
+	jpql = " AND p.preco = :preco ";
+}
+
+.
+.
+.
+
+Assim por diante
+
+Faremos o mesmo para setar cada parametro também com auxilio do TypedQuery.
+
+TypedQuery<Produto> query = em.createQuery(jpql, Produto.class);
+
+if (nome != null && !nome.trim().isEmpty()) {
+	query.setParameter("nome", nome);
+}
+if (preco != null) {
+	query.setParameter("preco", preco);
+}
+
+Assim por diante
+
+.
+.
+.
