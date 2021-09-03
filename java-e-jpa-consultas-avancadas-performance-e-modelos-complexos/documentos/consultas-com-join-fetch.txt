@@ -1,0 +1,11 @@
+Em uma aplicação, existe a possibilidade de o EntityManager estar fechado, mesmo antes de realizar uma consulta ao banco.
+
+O erro retornado é esse: org.hibernate.LazyInitializationException
+
+A solução é: Se você recebeu esse erro e percebe que está tentando realizar uma consulta após o fechamento do EntityManager, é necessário mudar o tipo de consulta.
+
+Teremos que fazer uma query planejada, pois pegaremos informações de Pedido e Cliente também
+
+SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id
+
+Nessa consulta que estamos buscando informações do pedido e do cliente, colocamos o JOIN FETCH p.cliente antes do WHERE
