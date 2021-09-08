@@ -1,0 +1,33 @@
+Apesar de, no projeto, termos classes diferentes, que estão relacionadas a Produto, como livro e informatica. Podemos colocar as informações no banco como se isso fosse uma unica tabela.
+
+Um "tabelão". Para isso usamos a ideia da "Single Table"
+
+A vantagem é a melhor perfomance, a desvantagem eh a mistura em uma unica tabela
+
+Para isso, colocamos o codigo:
+
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
+Na classe que seria a "mãe" das outras classes
+
+E nas outras classes que se relacionam com a classe "mãe" no nosso caso, a classe "mãe" eh Produto e as classes filhas são Livro e Informatica, colocar o seguinte codigo:
+
+@Entity
+
+
+O que acontece quando vc testa as funções de produto. No inicio da criacao da tabela, o hibernate coloca, "DTYPE" um varchar. Esse DTYPE serve para identificar o tipo do produto que está sendo criado, se é livro ou informatica. O hibernate pega exatamente o nome da classe e coloca nessa variavel.
+
+
+Existe também a tabela por classe: "JOINED"
+
+Insere na tabela de Livros e na tabela de Produtos.
+
+A vantagem é a organização.
+
+A desvantagem é que haverá um join em Livros e Produtos para trazer informações, o que pode diminuir a perfomance do projeto
+
+Para isso, colocar o seguinte codigo na classe "mae":
+
+@Inheritance(strategy = InheritanceType.JOINED)
+
+O restante permanece da mesma forma
