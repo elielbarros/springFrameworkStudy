@@ -1,0 +1,15 @@
+Nesse contexto, iremos usar o CriteriaBuilder para criar nosso filtro.
+
+Eh necessario ter o "CriteriaBuilder", "CriteriaQuery<Entidade>" e a entidade que estamos fazendo a query. No nosso exemplo, estamos fazendo queries para Produto.class
+
+Com isso criamos os filtros usando o "Predicate".
+
+Para cada filtro ficamos com o seguinte codigo de exemplo:
+
+builder.and(filtros, builder.equal(from.get("nome"), nome));
+
+O builder tem varios metodos. Ele simula a comparação da query.
+
+Nesse caso acima, temos uma comparação "equal". Seguindo o padrão da query que fizemos antes "AND p.nome = :nome".
+
+Mas poderia ser builder.gt(), por exemplo, que é o greater-than
