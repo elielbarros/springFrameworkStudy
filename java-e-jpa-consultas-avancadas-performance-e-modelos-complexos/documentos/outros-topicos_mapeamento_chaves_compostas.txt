@@ -1,0 +1,9 @@
+Chaves Compostas
+
+Podemos utilizar Chaves Compostas com auxilio do Embeddedable e EmbeddedId.
+
+Temos que criar uma classe separada com as variaveis que irão compor a Chave Composta.
+
+No caso do projeto, criei CategoriaId. As chaves que a compoe seriam "nome" e "tipo"
+
+Geralmente a classe responsavel por ficar com as chaves, implementa "Serializable"
