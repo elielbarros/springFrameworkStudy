@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.com.alura.spring.data.service.CrudCargoService;
 import br.com.alura.spring.data.service.CrudFuncionarioService;
 import br.com.alura.spring.data.service.CrudUnidadeTrabalhoService;
+import br.com.alura.spring.data.service.RelatorioFuncionarioDinamicoService;
 import br.com.alura.spring.data.service.RelatoriosService;
 
 @SpringBootApplication
@@ -20,12 +21,14 @@ public class SpringDataApplication implements CommandLineRunner {
 	private final CrudFuncionarioService crudFuncionarioService;
 	private final CrudUnidadeTrabalhoService crudUnidadeTrabalhoService;
 	private final RelatoriosService relatoriosService;
+	private final RelatorioFuncionarioDinamicoService relatorioFuncionarioDinamicoService;
 
-	public SpringDataApplication(CrudCargoService crudCargoService, CrudFuncionarioService crudFuncionarioService, CrudUnidadeTrabalhoService crudUnidadeTrabalhoService, RelatoriosService relatoriosService) {
+	public SpringDataApplication(CrudCargoService crudCargoService, CrudFuncionarioService crudFuncionarioService, CrudUnidadeTrabalhoService crudUnidadeTrabalhoService, RelatoriosService relatoriosService, RelatorioFuncionarioDinamicoService relatorioFuncionarioDinamicoService) {
 		this.crudCargoService = crudCargoService;
 		this.crudFuncionarioService = crudFuncionarioService;
 		this.crudUnidadeTrabalhoService = crudUnidadeTrabalhoService;
 		this.relatoriosService = relatoriosService;
+		this.relatorioFuncionarioDinamicoService = relatorioFuncionarioDinamicoService;
 	}
 
 	public static void main(String[] args) {
@@ -40,7 +43,9 @@ public class SpringDataApplication implements CommandLineRunner {
 		System.out.println("0 - Cargo");
 		System.out.println("1 - Funcionario");
 		System.out.println("2 - Unidade de Trabalho");
-		System.out.println("3 - Buscar funcionario por nome");
+		System.out.println("3 - Relatorios");
+		System.out.println("4 - Relatorio dinamico funcionario");
+		System.out.println("9 - Sair");
 
 		String cargo_funcionario_unidade = "";
 
@@ -59,9 +64,14 @@ public class SpringDataApplication implements CommandLineRunner {
 		case 3:
 			relatoriosService.inicial(scanner);
 			break;
+		case 4:
+			relatorioFuncionarioDinamicoService.inicial(scanner);
 		default:
-			System.out.println("Opcao invalida! Tente novamente");
-			break;
+			if(escolha!=9) {
+				System.out.println("Opcao invalida! Tente novamente");
+			}
+			scanner.close();
+			return;
 		}
 
 		while (system) {
