@@ -1,9 +1,9 @@
 package br.com.alura.forum.controller;
 
+import br.com.alura.forum.controller.dto.DetalhesDoTopicoDto;
 import br.com.alura.forum.controller.dto.TopicoDto;
 import br.com.alura.forum.controller.form.AtualizacaoTopicoForm;
 import br.com.alura.forum.controller.form.TopicoForm;
-import br.com.alura.forum.controller.dto.DetalhesDoTopicoDto;
 import br.com.alura.forum.modelo.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -18,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,7 +31,13 @@ public class TopicosController {
     private CursoRepository cursoRepository;
 
     @GetMapping
-    public Page<TopicoDto> lista(@RequestParam(required = false) String nomeCurso, @RequestParam int pagina, @RequestParam int qtd) {
+    public Page<TopicoDto> lista(
+            @RequestParam(required = false) String nomeCurso,
+            @RequestParam int pagina,
+            @RequestParam int qtd,
+            @RequestParam String ordenacao,
+            @RequestParam(required = false, defaultValue = "asc") String direcao
+    ) {
 
         // OBS.: Se eu tenho variaveis com nomes iguais, em topico e em curso
         // Posso diferencia-los usando underline, para destacar que quero uma
@@ -39,8 +45,14 @@ public class TopicosController {
         // Por exemplo
         //return TopicoDto.converter(topicoRepository.findByCurso_Nome(nomeCurso));
 
-        Pageable pageable = PageRequest.of(pagina, qtd);
-        if(nomeCurso == null) {
+        Pageable pageable;
+        if(direcao.equalsIgnoreCase("asc")){
+            pageable = PageRequest.of(pagina, qtd, Sort.Direction.ASC, ordenacao);
+        } else {
+            pageable = PageRequest.of(pagina, qtd, Sort.Direction.DESC, ordenacao);
+        }
+
+        if (nomeCurso == null) {
             return TopicoDto.converter(topicoRepository.findAll(pageable));
         } else {
             return TopicoDto.converter(topicoRepository.findByCurso_Nome(nomeCurso, pageable));
@@ -59,7 +71,7 @@ public class TopicosController {
     @GetMapping("/{id}")
     public ResponseEntity<DetalhesDoTopicoDto> detalhar(@PathVariable Long id) {
         Optional<Topico> topico = topicoRepository.findById(id);
-        if(topico.isPresent()) {
+        if (topico.isPresent()) {
             return ResponseEntity.ok(new DetalhesDoTopicoDto(topico.get()));
         }
         return ResponseEntity.notFound().build();
@@ -69,7 +81,7 @@ public class TopicosController {
     @Transactional
     public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoTopicoForm form) {
         Optional<Topico> topicoById = topicoRepository.findById(id);
-        if(topicoById.isPresent()) {
+        if (topicoById.isPresent()) {
             Topico topico = form.atualizar(id, topicoRepository);
             return ResponseEntity.ok(new TopicoDto(topico));
         }
@@ -80,7 +92,7 @@ public class TopicosController {
     @Transactional
     public ResponseEntity<?> remover(@PathVariable Long id) {
         Optional<Topico> topicoOptional = topicoRepository.findById(id);
-        if(topicoOptional.isPresent()) {
+        if (topicoOptional.isPresent()) {
             topicoRepository.deleteById(id);
             return ResponseEntity.ok().build();
         }
