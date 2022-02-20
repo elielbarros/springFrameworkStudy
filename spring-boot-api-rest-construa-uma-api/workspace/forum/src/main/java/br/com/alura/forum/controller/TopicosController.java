@@ -8,6 +8,9 @@ import br.com.alura.forum.modelo.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,17 +31,19 @@ public class TopicosController {
     private CursoRepository cursoRepository;
 
     @GetMapping
-    public List<TopicoDto> lista(String nomeCurso) {
+    public Page<TopicoDto> lista(@RequestParam(required = false) String nomeCurso, @RequestParam int pagina, @RequestParam int qtd) {
 
         // OBS.: Se eu tenho variaveis com nomes iguais, em topico e em curso
         // Posso diferencia-los usando underline, para destacar que quero uma
         // Informação que vem do relacionamento
         // Por exemplo
         //return TopicoDto.converter(topicoRepository.findByCurso_Nome(nomeCurso));
+
+        Pageable pageable = PageRequest.of(pagina, qtd);
         if(nomeCurso == null) {
-            return TopicoDto.converter(topicoRepository.findAll());
+            return TopicoDto.converter(topicoRepository.findAll(pageable));
         } else {
-            return TopicoDto.converter(topicoRepository.findByCurso_Nome(nomeCurso));
+            return TopicoDto.converter(topicoRepository.findByCurso_Nome(nomeCurso, pageable));
         }
     }
 
