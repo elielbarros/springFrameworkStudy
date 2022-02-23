@@ -30,6 +30,17 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+
+		<!--
+		This dependency use a cache provider.
+		In a project, we usually use an external cache provider.
+		But, to study, we will use default cache provider from Spring.
+		-->
+
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.27</version>
