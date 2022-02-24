@@ -75,15 +75,22 @@ public class Usuario implements UserDetails {
         this.senha = senha;
     }
 
+    public List<Perfil> getPerfis() {
+        return perfis;
+    }
+
+    public void setPerfis(List<Perfil> perfis) {
+        this.perfis = perfis;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return null;
+        return getPerfis();
     }
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return getSenha();
     }
 
     @Override
