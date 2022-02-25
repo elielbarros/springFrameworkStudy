@@ -25,6 +25,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     @Autowired
     TokenService tokenService;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
     @Override
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -55,7 +58,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class)
+                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class)
         ;
     }
 
