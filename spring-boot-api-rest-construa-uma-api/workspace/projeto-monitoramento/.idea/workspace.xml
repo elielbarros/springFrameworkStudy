@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="392a38df-f3f1-4d75-90b0-655e2332b9a7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../forum/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../forum/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forum/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../forum/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/br.com.alura/monitoramento/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/br.com.alura/monitoramento/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/com/alura/monitoramento/MonitoramentoApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/alura/monitoramento/MonitoramentoApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/br/com/alura/monitoramento/MonitoramentoApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/br/com/alura/monitoramento/MonitoramentoApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
