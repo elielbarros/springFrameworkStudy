@@ -8,19 +8,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 public class CursoRepositoryTest {
 
     @Autowired
     private CursoRepository cursoRepository;
 
+    @Autowired
+    private TestEntityManager testEntityManager;
+
     @Test
     public void deveriaCarregarUmCursoAoBuscarPeloSeuNome() {
         String nomeCurso = "HTML 5";
+        Curso html5 = new Curso();
+        html5.setNome(nomeCurso);
+        html5.setCategoria("Programacao");
+        testEntityManager.persist(html5);
+
         Curso cursoByNome = cursoRepository.findByNome(nomeCurso);
         Assert.assertNotNull(cursoByNome);
         Assert.assertEquals(nomeCurso, cursoByNome.getNome());
